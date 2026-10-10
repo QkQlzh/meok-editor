@@ -1,0 +1,492 @@
+/* meok — import once: import 'meok/styles.css' */
+
+.meok {
+  --meok-bg: #ffffff;
+  --meok-surface: #f7f6f3;
+  --meok-text: #1f1e1c;
+  --meok-muted: #75716b;
+  --meok-border: #e4e1db;
+  --meok-accent: #3a5bd9;
+  --meok-accent-soft: rgba(58, 91, 217, 0.12);
+  --meok-ai: #7a4fd6;
+  --meok-ai-soft: rgba(122, 79, 214, 0.14);
+  --meok-danger: #c2412d;
+  --meok-mark: #fff1a8;
+  --meok-shadow: 0 8px 28px rgba(20, 18, 15, 0.14), 0 1px 3px rgba(20, 18, 15, 0.08);
+  --meok-radius: 10px;
+  --meok-font: 'Pretendard', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', 'Segoe UI', sans-serif;
+  --meok-mono: ui-monospace, 'SFMono-Regular', 'D2Coding', Menlo, Consolas, monospace;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  background: var(--meok-bg);
+  color: var(--meok-text);
+  border: 1px solid var(--meok-border);
+  border-radius: var(--meok-radius);
+  font-family: var(--meok-font);
+}
+
+@media (prefers-color-scheme: dark) {
+  .meok:not([data-theme='light']) {
+    --meok-bg: #1b1a19;
+    --meok-surface: #242321;
+    --meok-text: #ebe8e3;
+    --meok-muted: #a19c94;
+    --meok-border: #383532;
+    --meok-accent: #8aa2ff;
+    --meok-accent-soft: rgba(138, 162, 255, 0.16);
+    --meok-ai: #b89bff;
+    --meok-ai-soft: rgba(184, 155, 255, 0.18);
+    --meok-mark: #6b5a12;
+    --meok-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+}
+.meok[data-theme='dark'] {
+  --meok-bg: #1b1a19;
+  --meok-surface: #242321;
+  --meok-text: #ebe8e3;
+  --meok-muted: #a19c94;
+  --meok-border: #383532;
+  --meok-accent: #8aa2ff;
+  --meok-accent-soft: rgba(138, 162, 255, 0.16);
+  --meok-ai: #b89bff;
+  --meok-ai-soft: rgba(184, 155, 255, 0.18);
+  --meok-mark: #6b5a12;
+  --meok-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Toolbar ---------- */
+
+.meok-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--meok-bg);
+  border-bottom: 1px solid var(--meok-border);
+  border-radius: var(--meok-radius) var(--meok-radius) 0 0;
+}
+.meok-toolbar-extra {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+.meok-toolbar-row {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding-top: 4px;
+  margin-top: 4px;
+  border-top: 1px dashed var(--meok-border);
+}
+.meok-sep {
+  width: 1px;
+  height: 18px;
+  margin: 0 4px;
+  background: var(--meok-border);
+}
+
+.meok-btn {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.meok-btn:hover:not(:disabled) {
+  background: var(--meok-surface);
+}
+.meok-btn.is-active {
+  background: var(--meok-accent-soft);
+  color: var(--meok-accent);
+}
+.meok-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.meok-btn.is-text {
+  padding: 0 10px;
+  font-size: 13px;
+}
+.meok-btn.is-primary {
+  background: var(--meok-accent);
+  color: #fff;
+}
+.meok-btn.is-primary:hover:not(:disabled) {
+  background: var(--meok-accent);
+  filter: brightness(1.08);
+}
+.meok-btn.is-danger {
+  color: var(--meok-danger);
+}
+.meok-btn mark {
+  background: var(--meok-mark);
+  color: inherit;
+  padding: 0 2px;
+}
+
+.meok-select {
+  height: 30px;
+  padding: 0 6px;
+  border: 1px solid var(--meok-border);
+  border-radius: 6px;
+  background: var(--meok-bg);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+}
+
+.meok-ai-btn {
+  height: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--meok-ai-soft);
+  color: var(--meok-ai);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.meok-ai-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ---------- Content ---------- */
+
+.meok > div:has(> .meok-content) {
+  flex: 1;
+  display: flex;
+}
+.meok-content {
+  flex: 1;
+  min-height: 260px;
+  padding: 28px 36px 48px;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.75;
+  word-break: keep-all; /* Korean: break between words, not syllables */
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .meok-content {
+    padding: 20px 16px 40px;
+  }
+}
+
+.meok-content > * + * {
+  margin-top: 0.6em;
+}
+.meok-content h1 {
+  font-size: 1.75em;
+  line-height: 1.3;
+  margin: 1.2em 0 0.4em;
+}
+.meok-content h2 {
+  font-size: 1.4em;
+  line-height: 1.35;
+  margin: 1.1em 0 0.35em;
+}
+.meok-content h3 {
+  font-size: 1.15em;
+  margin: 1em 0 0.3em;
+}
+.meok-content > :first-child {
+  margin-top: 0;
+}
+.meok-content p {
+  margin: 0;
+}
+.meok-content ul,
+.meok-content ol {
+  padding-left: 1.5em;
+  margin: 0.4em 0;
+}
+.meok-content li > p {
+  margin: 0.15em 0;
+}
+.meok-content ul[data-type='taskList'] {
+  list-style: none;
+  padding-left: 0.25em;
+}
+.meok-content ul[data-type='taskList'] li {
+  display: flex;
+  gap: 0.5em;
+  align-items: flex-start;
+}
+.meok-content ul[data-type='taskList'] li > label {
+  margin-top: 0.3em;
+}
+.meok-content ul[data-type='taskList'] li > div {
+  flex: 1;
+}
+.meok-content ul[data-type='taskList'] li[data-checked='true'] > div {
+  color: var(--meok-muted);
+  text-decoration: line-through;
+}
+.meok-content blockquote {
+  margin: 0.6em 0;
+  padding: 0.1em 0 0.1em 1em;
+  border-left: 3px solid var(--meok-border);
+  color: var(--meok-muted);
+}
+.meok-content code {
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--meok-surface);
+  font-family: var(--meok-mono);
+  font-size: 0.88em;
+}
+.meok-content pre {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--meok-surface);
+  overflow-x: auto;
+}
+.meok-content pre code {
+  padding: 0;
+  background: none;
+}
+.meok-content mark {
+  background: var(--meok-mark);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.meok-content a {
+  color: var(--meok-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.meok-content hr {
+  border: 0;
+  border-top: 1px solid var(--meok-border);
+  margin: 1.5em 0;
+}
+.meok-content p.is-editor-empty:first-child::before,
+.meok-content .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--meok-muted);
+  pointer-events: none;
+}
+
+/* Tables */
+.meok-content .tableWrapper {
+  overflow-x: auto;
+  margin: 0.8em 0;
+}
+.meok-content table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+}
+.meok-content td,
+.meok-content th {
+  position: relative;
+  min-width: 60px;
+  padding: 6px 10px;
+  border: 1px solid var(--meok-border);
+  vertical-align: top;
+  box-sizing: border-box;
+}
+.meok-content th {
+  background: var(--meok-surface);
+  font-weight: 600;
+  text-align: left;
+}
+.meok-content .selectedCell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--meok-accent-soft);
+  pointer-events: none;
+}
+.meok-content .column-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  bottom: 0;
+  width: 4px;
+  background: var(--meok-accent);
+  pointer-events: none;
+}
+.meok-content.resize-cursor {
+  cursor: col-resize;
+}
+
+/* Range the AI is working on */
+.meok-ai-target {
+  background: var(--meok-ai-soft);
+  border-radius: 2px;
+  box-shadow: 0 2px 0 var(--meok-ai);
+}
+
+/* ---------- Popovers ---------- */
+
+.meok-bubble {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--meok-bg);
+  border: 1px solid var(--meok-border);
+  border-radius: var(--meok-radius);
+  box-shadow: var(--meok-shadow);
+}
+
+.meok[data-ai-busy] .meok-bubble {
+  display: none !important;
+}
+
+.meok-ai-menu {
+  position: relative;
+  margin-left: 2px;
+}
+.meok-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  min-width: 190px;
+  padding: 4px;
+  background: var(--meok-bg);
+  border: 1px solid var(--meok-border);
+  border-radius: var(--meok-radius);
+  box-shadow: var(--meok-shadow);
+}
+.meok-menu-item,
+.meok-slash-item {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.meok-menu-item:hover,
+.meok-slash-item:hover,
+.meok-slash-item.is-active {
+  background: var(--meok-surface);
+}
+
+.meok-pop {
+  position: absolute;
+  z-index: 20;
+  background: var(--meok-bg);
+  border: 1px solid var(--meok-border);
+  border-radius: var(--meok-radius);
+  box-shadow: var(--meok-shadow);
+}
+.meok-slash {
+  width: 220px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px;
+}
+.meok-empty {
+  padding: 8px 10px;
+  color: var(--meok-muted);
+  font-size: 13px;
+}
+
+.meok-prompt {
+  display: flex;
+  gap: 4px;
+  width: min(440px, calc(100% - 16px));
+  padding: 6px;
+}
+.meok-prompt input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--meok-border);
+  border-radius: 6px;
+  background: var(--meok-bg);
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.meok-prompt input:focus {
+  border-color: var(--meok-ai);
+}
+
+.meok-ai-panel {
+  width: min(520px, calc(100% - 16px));
+  padding: 12px;
+}
+.meok-ai-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--meok-ai);
+  font-size: 13px;
+  font-weight: 600;
+}
+.meok-muted {
+  color: var(--meok-muted);
+  font-weight: 400;
+}
+.meok-ai-output {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--meok-surface);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.meok-ai-error {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(194, 65, 45, 0.1);
+  color: var(--meok-danger);
+  font-size: 14px;
+}
+.meok-ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+/* ---------- Footer ---------- */
+
+.meok-footer {
+  padding: 6px 12px;
+  border-top: 1px solid var(--meok-border);
+  color: var(--meok-muted);
+  font-size: 12px;
+  text-align: right;
+}

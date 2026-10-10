@@ -1,0 +1,95 @@
+{
+  "name": "meok",
+  "version": "0.1.0",
+  "description": "한국어 글쓰기에 맞춘 React AI 문서 편집기 (Tiptap 3). AI 다듬기·번역·요약·이어쓰기 스트리밍, 파이썬 서버 예제 포함.",
+  "keywords": [
+    "editor",
+    "tiptap",
+    "react",
+    "ai",
+    "korean",
+    "한글",
+    "wysiwyg"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsup && cp src/styles.css dist/styles.css",
+    "typecheck": "tsc --noEmit --jsx react-jsx --strict --skipLibCheck --moduleResolution bundler --module esnext --target es2022 --lib es2022,dom,dom.iterable src/index.tsx",
+    "prepublishOnly": "npm run build"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.tsx"
+    ],
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "dts": {
+      "compilerOptions": {
+        "moduleResolution": "bundler",
+        "module": "esnext",
+        "target": "es2022",
+        "jsx": "react-jsx",
+        "strict": true,
+        "skipLibCheck": true,
+        "lib": [
+          "es2022",
+          "dom",
+          "dom.iterable"
+        ]
+      }
+    },
+    "clean": true,
+    "external": [
+      "react",
+      "react-dom"
+    ]
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@tiptap/core": "^3.31.0",
+    "@tiptap/extension-highlight": "^3.31.0",
+    "@tiptap/extension-list": "^3.31.0",
+    "@tiptap/extension-table": "^3.31.0",
+    "@tiptap/extension-text-align": "^3.31.0",
+    "@tiptap/extensions": "^3.31.0",
+    "@tiptap/pm": "^3.31.0",
+    "@tiptap/react": "^3.31.0",
+    "@tiptap/starter-kit": "^3.31.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0"
+  }
+}
